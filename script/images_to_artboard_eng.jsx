@@ -6,10 +6,16 @@ var files = File.openDialog("Select images to place", "*.jpg;*.png;*.gif;*.tif;*
 if (files) {
     // Enter artboard numbers (example: 1,3,5)
     var input = prompt("Enter the artboard numbers separated by commas.\n(e.g., 1,3,5)", "");
-    if (input) {
-        var indices = input.split(",").map(function(num) {
-            return parseInt(num.trim(), 10) - 1; // Convert to 0-based index
-        });
+
+    if (input && input !== "") {
+        var parts = input.split(",");
+        var indices = [];
+        for (var k = 0; k < parts.length; k++) {
+            var num = parseInt(parts[k], 10) - 1; // Convert to 0-based
+            if (!isNaN(num)) {
+                indices.push(num);
+            }
+        }
 
         for (var j = 0; j < indices.length && j < files.length; j++) {
             var i = indices[j];
